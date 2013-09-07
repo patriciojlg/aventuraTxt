@@ -12,35 +12,36 @@ mirar el gabado extraño que hay en la pared --> mirar grabado
 también, se puede ir al bano --> ir al bano
 en el bano, se puede pedir una descripcion --> mirar
 
-
-
-BITACORA
+BITACORA (logros a nivel de desarrollo)
 
 03/09/13
-irA() ya logra cambiar la hubicacion del personaje.
+irA() ya logra cambiar la ubicacion del personaje.
 04/09/13
 irA() a traves de movimientosValidos()
-Logra mover al persona de hubicacion, describe la nueva hubicacion
+Logra mover al persona de ubicacion, describe la nueva ubicacion
 05/09/13
 Se depura el procesamiento de las frases entrades a través de la creación de 
 función que limpia la entrada de hilativos dejando solo verbo + sustantivo.
-ir al bano ---> ir bano | mirar la piedra --> mirar piedra
-
- 
+ejemplo: ir al bano ---> ["ir", "bano"] | mirar la piedra --> ["mirar"."piedra"]
 
 
 TAREAS PENDIENTES:
     
-    - Descripción especial al: Entrar a una hubicación.
-    - Mostrar salidas disponibles: al describir 1°vez la hubicación 
-      y al recibir verbo.ir 
-    -
+    - La descripción de cada hubicación (escena), a través de un título, descripción del lugar, objetos y salidas.
     
-    - Crear métodos que puedan procesar un verbo + un sustantivo. Ejemplo:
+    Ejemplo:
     
+    BAÑO
+    
+    Estás en el baño de la casa, es un lugar repuganante, las paredes están cubiertas de algo rugoso color rojo oscuro 
+    que parece estár vivo, el olor es pestilente. La tasa del WC está llena a tope de agua-feca y al parecer la cadena
+    no se ha tirado por mucho tiempo...  Al Norte vuelves al living de la casa. 
+    
+   - Crear métodos que manipulen objetos: 
+   
    VerbObjetoHub(queverbo,queobjeto):
            obj = queobjeto
-        if queverbo in verbos and queobjeto in hubicacion.objetos:
+        if queverbo in verbos and queobjeto in ubicacion.objetos:
             return true
         else:
             return false
@@ -48,9 +49,10 @@ TAREAS PENDIENTES:
      
     if verboObjetoHub("coger","manzana") == True:
         print "Coges la manzana y la guardas en tu mochila"
-        hubicacion.objetos.remove(obj)
+        ubicacion.objetos.remove(obj)
         inventario.extend(obj)
    
+------------------------------ ------------ ---------------------- -----------------------------------
 
 #SIN HILATIVOS!
 
@@ -107,8 +109,8 @@ bano.descripcion = "Este lugar apesta... estás en un bano que tiene un olor que
 #Salidas
 cuarto.salidas = ["bano"]
 bano.salidas = ["cuarto"]
-#Defino hubicacion inicial
-hubicacion = cuarto
+#Defino ubicacion inicial
+ubicacion = cuarto
 
 cuarto.objetos["luz"] = "Tras la puerta de entrada a esta habitación se siente un interruptor"
 cuarto.descripcion = "No veo nada está todo oscuro..."
@@ -146,51 +148,51 @@ def entradaDesconocida(entrada):
         print "No conozco el verbo %s. Prueba con otro por favor" % entrada[0]
     elif len(entrada) > 1:    
         #Ojo cuarto debe ser una clase intanciada
-        if entrada[0] not in ir and entrada[0] in verbo and entrada[1] not in hubicacion.objetos:
+        if entrada[0] not in ir and entrada[0] in verbo and entrada[1] not in ubicacion.objetos:
             print "No veo aquello que quieres %s" % entrada[0]
 
 
 #Metodo ir a; ir a el, ir hacia el, etc  etc
 def movimientosValidos(entrada):
     if len(entrada) < 3:
-        if entrada[0] in ir and entrada[1] in hubicacion.salidas:
+        if entrada[0] in ir and entrada[1] in ubicacion.salidas:
             return True
   #  elif len(entrada) < 4:
-   #     if entrada[0] in ir and entrada[1] in preposiciones and entrada[2] in hubicacion.salidas:
+   #     if entrada[0] in ir and entrada[1] in preposiciones and entrada[2] in ubicacion.salidas:
     #        return True
    # elif len(entrada) < 5:
-    #    if entrada[0] in ir and entrada[1] in preposiciones and entrada[2] in articulos and entrada[3] in hubicacion.salidas:
+    #    if entrada[0] in ir and entrada[1] in preposiciones and entrada[2] in articulos and entrada[3] in ubicacion.salidas:
      #       return True
     else:
         return False
 
-#Recibe el verbo ir y cambia la hubicacion; a través de las salidas de cada hubicacion. 
+#Recibe el verbo ir y cambia la ubicacion; a través de las salidas de cada ubicacion. 
 def irA(entrada):
-    global hubicacion
+    global ubicacion
     if entrada[0] in ir:
         #Solo un verbo ir[]
         if len(entrada) < 2:
             print "Sí, pero %s a dónde?" % entrada[0]
             #Sin artículo            
         elif movimientosValidos(entrada) == True:
-                hubicacion = eval(entrada[len(entrada)-1])
-                print hubicacion.descripcionEnt
+                ubicacion = eval(entrada[len(entrada)-1])
+                print ubicacion.descripcionEnt
         else:
             print "No te entiendo hacia donde quieres ir"
 
 #Imprime descripciones de los lugares y los objetos            
 def descriptor(entrada):
-    global hubicacion
+    global ubicacion
     orden = entrada
-    ##Muestra la descripción de la hubicacion examinada
+    ##Muestra la descripción de la ubicacion examinada
     if len(orden) == 1:
         if orden[0] in mirar:
-            print hubicacion.descripcion
+            print ubicacion.descripcion
             
     ##Muestra la descripcion del objeto examinado
     elif len(orden) > 1:
-        if orden[0] in mirar and orden[1] in hubicacion.objetos:
-            print hubicacion.objetos[orden[1]]
+        if orden[0] in mirar and orden[1] in ubicacion.objetos:
+            print ubicacion.objetos[orden[1]]
 
 
 #MEJORA DEL CODIGO A TRAVES DE UN ELIMINADOR DE HILATIVOS!
@@ -212,7 +214,7 @@ def hilativos(entrada):
     
     ##Eventos para "Cuarto"
 def eCuarto(entrada):
-    if hubicacion == cuarto:
+    if ubicacion == cuarto:
         ##Todos los eventos de esta habitación
         
         #Enciende la luz y agrega nuevos objetos a la habitacion
@@ -230,7 +232,7 @@ def eCuarto(entrada):
         #clase constructura.
         
         ##Evetos para bano       
-    elif hubicacion == bano:
+    elif ubicacion == bano:
         pass
         
 while True:
