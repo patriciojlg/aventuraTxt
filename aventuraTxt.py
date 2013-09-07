@@ -26,15 +26,16 @@ TAREAS PENDIENTES:
       y al recibir verbo.ir 
     -
     
-   
+    - Crear métodos que puedan procesar un verbo + un sustantivo. Ejemplo:
+    
    VerbObjetoHub(queverbo,queobjeto):
            obj = queobjeto
         if queverbo in verbos and queobjeto in hubicacion.objetos:
             return true
         else:
             return false
-    
-Como usar:
+     OTRO EJEMPLO 
+     
     if verboObjetoHub("coger","manzana") == True:
         print "Coges la manzana y la guardas en tu mochila"
         hubicacion.objetos.remove(obj)
@@ -44,10 +45,21 @@ Como usar:
 #SIN HILATIVOS!
 
 Ahora usar hilativos.sinHilativos 
-Para un mejor manejo de las ordenes entrates!     
+Para un mejor manejo de las ordenes entrates! 
+Ya no es necesario procesar cada una de las preposiciones y artículos, el método sinHilativos toma la entrada
+y le borra todo tipo de articulo, preposicion, etc. Dejando sólo el verbo y el sustantivo:
+
+Ejemplo 
+
+entrada = "ir al bano" 
+sinHilativos(entrada) --> ["ir", "bano"]
+lo cual permite pasar estos dos elementos de la lista, y procesarlos más cómodamente. 
 """
 
-## Esta clase es constructora y crea el objeto lugar
+
+#INICIO DEL PROGRAMA
+
+## Esta clase es constructora y crea el objeto lugar (hubicaciónes en las que le será posible estar al personaje)
 
 class lugar(object):
     def __init__(self):
@@ -75,7 +87,9 @@ class lugar(object):
         print self.salidas
 
 
-#Lugares
+#Solo con el afán de ir probando el código, Acá he ido instanciando la clase lugar() en objetos 
+# y asignando nuevas propiedades.
+
 cuarto = lugar()
 bano = lugar()
 bano.descripcionEnt = "Entras en el bano fétido..."
@@ -93,7 +107,7 @@ cuarto.descripcion = "No veo nada está todo oscuro..."
 
 sinHilativos = []
 
-#Definir verbos
+#Estas son las listas de verbos que el programa hasta el momento admite. 
 
 verbo = []
 mirar = ["mirar","examinar","explorar"]
@@ -104,10 +118,11 @@ ir = ["ir","moverse","dirigirse","salir","trasladarse","irse","entrar"]
 verbo.extend(ir)
 activar = ["encender","activar","prender"]
 verbo.extend(activar)
-#articulos
+
+#Estos son los artículos y conectores que el porgrama -hasta el día de hoy- admite como válidos. 
 articulos = ['el','la','los','las']
 preposiciones = ["a","hacia","al"]
-
+#Luego los meto todos en una sola lista llamada conectores, para poder reconocerlos y borrarlos de la entrada.
 conectores = []
 conectores.extend(articulos)
 conectores.extend(preposiciones)
