@@ -4,6 +4,16 @@ Created on Tue Sep  3 13:11:04 2013
 
 @author: joaquino
 
+Hasta el momento una vez ejecutado este archivo (el juego) es posible:
+
+pedir la descricion del cuarto --> mirar
+como todo está oscuro uno puede --> encender luz | si enciendes la luz cambia la descripcion del cuarto (pues puedes ver)
+mirar el gabado extraño que hay en la pared --> mirar grabado
+también, se puede ir al bano --> ir al bano
+en el bano, se puede pedir una descripcion --> mirar
+
+
+
 BITACORA
 
 03/09/13
