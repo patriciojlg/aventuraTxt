@@ -75,6 +75,7 @@ lo cual permite pasar estos dos elementos de la lista, y procesarlos más cómod
 
 class lugar(object):
     def __init__(self):
+        self.titulo = ""
         #Intterruptor de eventos
         self.interruptor = False
         #Descripción tomada por el método setDescripcion()
@@ -176,7 +177,7 @@ def irA(entrada):
             #Sin artículo            
         elif movimientosValidos(entrada) == True:
                 ubicacion = eval(entrada[len(entrada)-1])
-                print ubicacion.descripcionEnt
+                print ubicacion.descripcion
         else:
             print "No te entiendo hacia donde quieres ir"
 
