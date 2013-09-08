@@ -103,17 +103,33 @@ class lugar(object):
 #Solo con el afán de ir probando el código, Acá he ido instanciando la clase lugar() en objetos 
 # y asignando nuevas propiedades.
 
+#Este método muestra el mensaje de bienvenida al juego -- o descripción 
+#de la narración introductoria. 
+
+def inicio():
+    print "Este programa es un motor para la creación de Video-Juegos, de tipo \
+    \n aventuras de texto o aventuras conversacionales. El cual como objetivo \
+    \n principal pretende narrar situaciones en las cuales el usuario (jugador) \
+    \n pueda realizar acciones y/o tomar decisiones, escribiendolas como texto \
+    \n -- Por el momento puedes hacer algunas pruebas, escribiendo: mirar, ir a, \
+    \n encender luz (en tu dormitorio), mirar grabados, ir a bano, etc \n \
+    Ejemplo:\n \
+    Estás en tu cuarto, has despertado y no recuerdas nada... \n"
+    print escena()
+        
+    
+
 cuarto = lugar()
 cuarto.titulo = "Tu dormitorio"
 cuarto.salidas = ["bano"]
 cuarto.objetos["luz"] = "Tras la puerta de entrada a esta habitación se siente un interruptor"
-cuarto.descripcion = "No veo nada está todo oscuro..."
+cuarto.descripcion = "No ves nada está todo oscuro..."
 
 
 bano = lugar()
 bano.titulo = "El bano en suite de tu dormitorio"
 bano.salidas = ["cuarto"]
-bano.descripcion = "Este lugar apesta... estás en un bano que tiene un olor que se mete en tu nariz y como ácido recorre tu sistema respiratorio. A demás, el lugar tiene unas paredes cubiertas de algo esponjoso que parece estar vivo. La tasa está casi rebalsando de un liquido rojo; la cadena de este al parecer no se ha tirado en siglos."
+bano.descripcion = "Este lugar apesta... estás en un bano que tiene un olor que se mete en tu nariz y como ácido recorre tu sistema respiratorio. A demás, el lugar tiene unas paredes cubiertas de algo esponjoso que parece estar vivo. La tasa está casi rebalsando de un liquido rojo; la cadena de este al parecer no se ha tirado en siglos. Al sur está tu dormitorio"
 #Salidas
 
 #Defino ubicacion inicial
@@ -150,7 +166,9 @@ conectores.extend(preposiciones)
 
 def escena():
     TITULO = ubicacion.titulo.upper()
-    return "\n"+chr(27)+"[0;46m"+TITULO+chr(27)+"[0m"+"\n\n"+ubicacion.descripcion+"\n"
+    return "\n"+"Estás en: "+chr(27)+"[0;46m"+TITULO+chr(27)+"[0m"+"\n\n"+ubicacion.descripcion+"\n"
+
+
 
 def entradaDesconocida(entrada):
     if entrada[0] not in verbo:
@@ -222,7 +240,11 @@ def eCuarto(entrada):
         
         #Enciende la luz y agrega nuevos objetos a la habitacion
         if orden[0] in activar and orden[1] == "luz":
-            cuarto.descripcion = "Estás en una habitación muy amplia, vacía por completo, no obstante, la pared del fondo tiene algunos GRABADOS"
+            cuarto.descripcion = "\
+Es una habitación muy amplia -esto anteriormente había sido tu Dormitorio-\
+pero ahora está vacío por completo, y lo más shockiante es que en la pared del \
+fondo, en vez de estar la puerta para salir al resto de tu departamento, \
+hay unos GRABADOS... A tu espalda sigue estando el bano de tu dormitorio."
             cuarto.objetos["grabados"] = "Son unos extraños grabados tipo indígenas que forman un árbol, y como fruto de éste hay incrustada en la pared una PIEDRA que brilla"                         
             print "Prendes la luz de la habitación, ahora todo se puede ver mucho mejor\nDas un vistaso y te das cuenta que "
             cuarto.getDescripcion()
@@ -237,9 +259,10 @@ def eCuarto(entrada):
         ##Evetos para bano       
     elif ubicacion == bano:
         pass
-        
+
+inicio()
 while True:
-    orden = raw_input("Que hace: ")
+    orden = raw_input("Qué haces > ")
     orden = orden.lower()
     orden = orden.split(" ")
     hilativos(orden)
