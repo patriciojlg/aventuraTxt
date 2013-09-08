@@ -80,7 +80,6 @@ class lugar(object):
         self.interruptor = False
         #Descripción tomada por el método setDescripcion()
         self.descripcion = ""
-        self.descriocionEnt = ""
         #En los objetos lo ideal sería usar un sucedaneo de Switch-Case 
         #Con descripcion, y reaccion para cada verbo y convinatoria con el inventario()
         self.objetos = {}
@@ -98,6 +97,7 @@ class lugar(object):
         print self.descripcion
     def getSalidas(self):
         print self.salidas
+
 
 
 #Solo con el afán de ir probando el código, Acá he ido instanciando la clase lugar() en objetos 
@@ -148,6 +148,10 @@ conectores.extend(preposiciones)
 
 #Funcion de errores en la entrada
 
+def escena():
+    TITULO = ubicacion.titulo.upper()
+    return "\n"+chr(27)+"[0;46m"+TITULO+chr(27)+"[0m"+"\n\n"+ubicacion.descripcion+"\n"
+
 def entradaDesconocida(entrada):
     if entrada[0] not in verbo:
         print "No conozco el verbo %s. Prueba con otro por favor" % entrada[0]
@@ -162,12 +166,6 @@ def movimientosValidos(entrada):
     if len(entrada) < 3:
         if entrada[0] in ir and entrada[1] in ubicacion.salidas:
             return True
-  #  elif len(entrada) < 4:
-   #     if entrada[0] in ir and entrada[1] in preposiciones and entrada[2] in ubicacion.salidas:
-    #        return True
-   # elif len(entrada) < 5:
-    #    if entrada[0] in ir and entrada[1] in preposiciones and entrada[2] in articulos and entrada[3] in ubicacion.salidas:
-     #       return True
     else:
         return False
 
@@ -181,7 +179,7 @@ def irA(entrada):
             #Sin artículo            
         elif movimientosValidos(entrada) == True:
                 ubicacion = eval(entrada[len(entrada)-1])
-                print ubicacion.descripcion
+                print escena()
         else:
             print "No te entiendo hacia donde quieres ir"
 
@@ -192,7 +190,7 @@ def descriptor(entrada):
     ##Muestra la descripción de la ubicacion examinada
     if len(orden) == 1:
         if orden[0] in mirar:
-            print ubicacion.descripcion
+            print escena()
             
     ##Muestra la descripcion del objeto examinado
     elif len(orden) > 1:
