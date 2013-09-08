@@ -9,3 +9,8 @@ El objetivo final de este juego es terminar el motor, cosa de en base a éste po
 desarrollar otras aventuras de texto. 
 
 
+PARA EJECUTAR:
+
+Debes tener instalado python. 
+Descargar el archivo aventuraTxt.py
+En consola (terminal - cmd - etc) debes escribir: python aventuraTxt.py
