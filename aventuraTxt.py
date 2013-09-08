@@ -104,17 +104,21 @@ class lugar(object):
 # y asignando nuevas propiedades.
 
 cuarto = lugar()
+cuarto.titulo = "Tu dormitorio"
+cuarto.salidas = ["bano"]
+cuarto.objetos["luz"] = "Tras la puerta de entrada a esta habitación se siente un interruptor"
+cuarto.descripcion = "No veo nada está todo oscuro..."
+
+
 bano = lugar()
-bano.descripcionEnt = "Entras en el bano fétido..."
+bano.titulo = "El bano en suite de tu dormitorio"
+bano.salidas = ["cuarto"]
 bano.descripcion = "Este lugar apesta... estás en un bano que tiene un olor que se mete en tu nariz y como ácido recorre tu sistema respiratorio. A demás, el lugar tiene unas paredes cubiertas de algo esponjoso que parece estar vivo. La tasa está casi rebalsando de un liquido rojo; la cadena de este al parecer no se ha tirado en siglos."
 #Salidas
-cuarto.salidas = ["bano"]
-bano.salidas = ["cuarto"]
+
 #Defino ubicacion inicial
 ubicacion = cuarto
 
-cuarto.objetos["luz"] = "Tras la puerta de entrada a esta habitación se siente un interruptor"
-cuarto.descripcion = "No veo nada está todo oscuro..."
 
 #Sin Hilativos
 
